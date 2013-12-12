@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/searchGooglePlay"
+        android:icon="@mipmap/ic_menu_play_store"
+        android:showAsAction="ifRoom"
+        android:title="Search in GooglePlay"/>
+    <item
+        android:id="@+id/showDownloadFolder"
+        android:icon="@drawable/ic_menu_archive"
+        android:showAsAction="ifRoom"
+        android:title="Show Download folder">
+        <menu>
+            <item android:id="@+id/dummyMenu" android:title="Placeholder"></item>
+        </menu>
+    </item>
+
+</menu>

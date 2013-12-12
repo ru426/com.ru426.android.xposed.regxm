@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Settings -->
+    <string name="app_name">ReGXM Ex</string>
+    <string name="app_desc">Rebuild of GXMod Extender for Xposed framework\n輝度バーを通知バーに追加するなどができます</string>
+
+    <string name="settings_systemui_title">SystemUI 設定</string>
+    <string name="settings_systemui_summary">SystemUI 設定の変更</string>
+    <string name="settings_lockscreen_key">LockScreenSettingsKey</string>
+    <string name="settings_lockscreen_title">ロック画面 設定</string>
+    <string name="settings_lockscreen_summary">ロック画面(Xperia SwipeSlide 4.1 Only) 設定の変更</string>
+    <string name="settings_power_menu_key">PowerButtonSettingsKey</string>
+    <string name="settings_power_menu_title">電源ボタン 設定</string>
+    <string name="settings_power_menu_summary">電源ボタンメニュー設定の変更</string>
+    <string name="settings_behavior_and_etc_key">BehaviorAndEtcSettingsKey</string>
+    <string name="settings_behavior_and_etc_title">UI・その他 設定</string>
+    <string name="settings_behavior_and_etc_summary">ユーザーインターフェース・その他設定の変更</string>
+    <string name="settings_behavior_key">BehaviorSettingsKey</string>
+    <string name="settings_behavior_title">UI挙動 設定</string>
+    <string name="settings_behavior_summary">UI挙動設定の変更</string>
+    <string name="settings_etc_key">EtcSettingsKey</string>
+    <string name="settings_etc_title">その他 設定</string>
+    <string name="settings_etc_summary">その他設定の変更</string>
+    <string name="settings_gxmod_only_key">GXModOnlySettingsKey</string>
+    <string name="settings_gxmod_only_title">GXMod 拡張 設定</string>
+    <string name="settings_gxmod_only_summary">GXMod SystemUI設定の変更</string>
+    <string name="settings_plugins_key">PluginsSettingsKey</string>
+    <string name="settings_plugins_title">ReGXM プラグイン 設定</string>
+    <string name="settings_plugins_summary">ReGXM プラグインの取得・管理</string>
+    <string name="settings_app_settings_title">アプリ 設定</string>
+    <string name="settings_app_settings_summary">アプリ設定の変更</string>
+    <string name="settings_about_title">About</string>
+    <string name="settings_about_summary">このアプリについて</string>
+    <string name="settings_third_party_plugin_title">エクストラ ReGXM プラグイン </string>
+    <string name="settings_third_party_plugin_summary">サードパーティーの ReGXM プラグイン</string>
+    
+    <string name="settings_plugin_list_title">ReGXM プラグインインストール方法</string>
+    <string name="settings_plugin_list_summary">■ 下記リストからダウンロードしてプラグインをインストールして下さい\n\n■ インストール済みは 長押しでアンインストール</string>
+    
+    <string name="settings_systemui_navigation_key">NavigationBarSettingsKey</string>
+    <string name="settings_systemui_navigation_title">ナビゲーションバー関連</string>
+    <string name="settings_systemui_navigation_summary">ナビゲーションバー配置,etc&#8230;</string>
+    
+    <string name="settings_systemui_notification_key">NotificationBarSettingsKey</string>
+    <string name="settings_systemui_notification_title">ステータスバー関連</string>
+    <string name="settings_systemui_notification_summary">通知領域 時計,バッテリーアイコン,etc&#8230;</string>
+    
+    <string name="settings_systemui_notification_tools_title">ステータスバーツール関連</string>
+    <string name="settings_systemui_notification_tools_summary">ステータスバートグル,etc&#8230;</string>
+
+    <string name="settings_gxmod_only_keybuttonview_title">ナビバーボタン</string>
+    <string name="settings_gxmod_only_keybuttonview_summary">ナビバーボタン 設定</string>    
+    <string name="settings_gxmod_only_keybuttonview_home_recent_key">HookGxModKeyButtonViewHomeRecentKey</string>
+    <string name="settings_gxmod_only_keybuttonview_home_recent_title">ホームボタン アプリ履歴</string>
+    <string name="settings_gxmod_only_keybuttonview_home_recent_summary">ホームボタン 長押しでアプリ履歴表示を無効にする</string>
+    <string name="settings_gxmod_only_keybuttonview_optional_key">HookGxModKeyButtonViewOptionalKey</string>
+    <string name="settings_gxmod_only_keybuttonview_optional_title">オプショナルボタン 長押し</string>
+    <string name="settings_gxmod_only_keybuttonview_optional_summary">オプショナルボタン 長押しを有効にする</string>
+    <string name="settings_gxmod_only_gxmod_caution_message_title">"この設定項目について"</string>
+    <string name="settings_gxmod_only_gxmod_caution_message_summary">"この設定項目はGXModのインストールされたXperia SO-04D または SO-05D でのみ有効になります。 154氏&amp;cubeundcube氏に感謝。"</string>    
+    
+    <!-- Module -->
+    <string name="move_tools_key">HookMoveToolsKey</string>
+    <string name="move_tools_title">ツールトグルの移動</string>
+    <string name="move_tools_summary">ツールトグルを通知バーの下方に移動</string>
+    
+    <string name="add_brightnessbar_key">HookAddBrightnessbarkey</string>
+    <string name="add_brightnessbar_title">輝度バーの追加</string>
+    <string name="add_brightnessbar_summary">輝度バーを通知バーに追加する</string>
+    
+    <string name="move_brightnessbar_key">HookMoveBrightnessBarKey</string>
+    <string name="move_brightnessbar_title">輝度バーの移動</string>
+    <string name="move_brightnessbar_summary">輝度バーを通知バーの下方に移動</string>
+    
+    <string name="show_carrier_label_key">HookCarrierLabelKey</string>
+    <string name="show_carrier_label_title">キャリア名の表示</string>
+    <string name="show_carrier_label_summary">通知バーのキャリア名を表示する</string>
+
+    <string name="show_auto_brightness_checkbox_key">ShowAutoBrightnessCheckboxKey</string>
+    <string name="show_auto_brightness_checkbox_title">輝度バー自動設定の表示</string>
+    <string name="show_auto_brightness_checkbox_summary">輝度バーアイコンタップで自動設定の表示・非表示を切り替えられます\n※表示されないときは輝度調節を行ってください。</string>
+
+    <string name="automatic_brightness">自動</string>
+    
+    <!-- ETC -->
+    <string name="loading_dialog_title">Now Loading&#8230;</string>
+    <string name="loading_dialog_message">プラグインリストをネットワークから取得しています</string>
+    <string name="loading_dialog_canceled_message">設定を再度取得しなおして下さい</string>
+    <string name="please_install_message">ダウンロードしたプラグインをインストールして下さい</string>
+    <string name="fail_to_get_list_of_plugin_from_network">プラグインリストの取得に失敗しました</string>
+    <string name="update_notification">プラグインのアップデートがあります</string>
+    <string name="no_installed">"[未インストール]"</string>
+    <string name="can_update">"[アップデート可]"</string>
+    
+    <string name="clear_all_key">ClearAllKey</string>
+    <string name="clear_all_title">すべての設定をクリア</string>
+    <string name="clear_all_summary">確認後すべての設定をクリアして、デフォルト値を設定します</string>
+    <string name="clear_all_dialog_title">すべての設定をクリアしますか?</string>
+    
+    <string name="debug_option_changed">このアプリの Xposed デバッグ ログを [%1$s]にします</string>
+    
+    <!-- About -->
+    <string name="about_developers_label">メイン開発者:</string>
+    <string name="about_developers"><a href="http://forum.xda-developers.com/member.php?u=2851639">ru_426</a></string>
+    <string name="about_developers_warning">サポートが必要な場合直接<b>連絡しないで</b>以下のリンクを使ってください。</string>
+    <string name="about_translator_label">翻訳:</string>
+    <string name="translator"></string>
+    <string name="about_version_label">アプリのバージョン:</string>
+    <string name="about_source_label">ソースコード:</string>
+    <string name="about_source">https://github.com/ru426</string>
+    <string name="about_support_label">サポート:</string>
+    <string name="about_support">http://forum.xda-developers.com/showthread.php?p=48398410</string>
+    <string name="about_support_warning"></string>
+    <string name="about_desc_label">説明:</string>
+    <string name="about_libraries_label">使用ライブラリ:</string>
+    <string name="about_libraries"></string>
+
+</resources>

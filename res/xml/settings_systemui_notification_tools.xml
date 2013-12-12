@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res/com.ru426.android.xposed.regxm" >
+
+    <PreferenceCategory
+        android:summary="@string/settings_systemui_notification_tools_summary"
+        android:title="@string/settings_systemui_notification_tools_title" >
+        <CheckBoxPreference
+            android:key="@string/add_brightnessbar_key"
+            android:summary="@string/add_brightnessbar_summary"
+            android:title="@string/add_brightnessbar_title" />
+
+        <Preference
+            android:selectable="false"
+            android:summary="@string/show_auto_brightness_checkbox_summary"
+            android:title="@string/show_auto_brightness_checkbox_title" >
+        </Preference>
+
+        <CheckBoxPreference
+            android:key="@string/move_brightnessbar_key"
+            android:summary="@string/move_brightnessbar_summary"
+            android:title="@string/move_brightnessbar_title" />
+        <CheckBoxPreference
+            android:key="@string/move_tools_key"
+            android:summary="@string/move_tools_summary"
+            android:title="@string/move_tools_title" />
+        <CheckBoxPreference
+            android:key="@string/show_carrier_label_key"
+            android:summary="@string/show_carrier_label_summary"
+            android:title="@string/show_carrier_label_title" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

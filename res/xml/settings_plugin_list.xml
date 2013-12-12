@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res/com.ru426.android.xposed.regxm" >
+
+    <Preference
+        android:selectable="false"
+        android:summary="@string/settings_plugin_list_summary"
+        android:title="@string/settings_plugin_list_title" />
+
+</PreferenceScreen>

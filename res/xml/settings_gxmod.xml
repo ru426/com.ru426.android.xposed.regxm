@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res/com.ru426.android.xposed.regxm" >
+
+    <PreferenceCategory android:title="@string/settings_gxmod_only_keybuttonview_title" >
+        <CheckBoxPreference
+            android:key="@string/settings_gxmod_only_keybuttonview_home_recent_key"
+            android:summary="@string/settings_gxmod_only_keybuttonview_home_recent_summary"
+            android:title="@string/settings_gxmod_only_keybuttonview_home_recent_title" />
+        <CheckBoxPreference
+            android:key="@string/settings_gxmod_only_keybuttonview_optional_key"
+            android:summary="@string/settings_gxmod_only_keybuttonview_optional_summary"
+            android:title="@string/settings_gxmod_only_keybuttonview_optional_title" />
+    </PreferenceCategory>
+
+    <Preference
+        android:selectable="false"
+        android:summary="@string/settings_gxmod_only_gxmod_caution_message_summary"
+        android:title="@string/settings_gxmod_only_gxmod_caution_message_title" >
+    </Preference>
+
+</PreferenceScreen>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Settings -->
+    <string name="app_name">ReGXM Ex</string>
+    <string name="app_desc">Rebuild of GXMod Extender for Xposed framework\nYou can and will be added to the notification bar brightness bar</string>
+
+    <string name="settings_systemui_title">SystemUI Settings</string>
+    <string name="settings_systemui_summary">Change SystemUI Settings</string>
+    <string name="settings_lockscreen_key">LockScreenSettingsKey</string>
+    <string name="settings_lockscreen_title">Lock Screen Settings</string>
+    <string name="settings_lockscreen_summary">Change Lock Screen(Xperia SwipeSlide 4.1 Only) Settings</string>
+    <string name="settings_power_menu_key">PowerButtonSettingsKey</string>
+    <string name="settings_power_menu_title">Power Button Settings</string>
+    <string name="settings_power_menu_summary">Change Power Button Menu Settings</string>
+    <string name="settings_behavior_and_etc_key">BehaviorAndEtcSettingsKey</string>
+    <string name="settings_behavior_and_etc_title">Behavior and Etc Settings</string>
+    <string name="settings_behavior_and_etc_summary">Change Behavior and Etc Settings</string>
+    <string name="settings_behavior_key">BehaviorSettingsKey</string>
+    <string name="settings_behavior_title">Behavior Settings</string>
+    <string name="settings_behavior_summary">Change Behavior Settings</string>
+    <string name="settings_etc_key">EtcSettingsKey</string>
+    <string name="settings_etc_title">Etc Settings</string>
+    <string name="settings_etc_summary">Change Etc&#8230; Settings</string>
+    <string name="settings_gxmod_only_key">GXModOnlySettingsKey</string>
+    <string name="settings_gxmod_only_title">GXMod extends Settings</string>
+    <string name="settings_gxmod_only_summary">GXMod extends function</string>
+    <string name="settings_plugins_key">PluginsSettingsKey</string>
+    <string name="settings_plugins_title">ReGXM Plugins Settings</string>
+    <string name="settings_plugins_summary">Get and Manage ReGXM Plugins</string>
+    <string name="settings_app_settings_title">App Settings</string>
+    <string name="settings_app_settings_summary">Change App Settings</string>
+    <string name="settings_about_title">About</string>
+    <string name="settings_about_summary">About this app</string>
+    <string name="settings_third_party_plugin_title">Extra ReGXM Plugins</string>
+    <string name="settings_third_party_plugin_summary">Third_party\'s ReGXM plugins</string>
+    
+    <string name="settings_plugin_list_title">How to install ReGXM Plugins</string>
+    <string name="settings_plugin_list_summary">■ Download opt-in list below\n\n■ After the plug-in has been installed, uninstall long Press</string>
+    
+    <string name="settings_systemui_navigation_key">NavigationBarSettingsKey</string>
+    <string name="settings_systemui_navigation_title">Navigation Bar</string>
+    <string name="settings_systemui_navigation_summary">Navigation Bar Settings</string>
+    
+    <string name="settings_systemui_notification_key">NotificationBarSettingsKey</string>
+    <string name="settings_systemui_notification_title">Notification Bar Settings</string>
+    <string name="settings_systemui_notification_summary">Notification area Clock,Battery icon,etc&#8230;</string>
+    
+    <string name="settings_systemui_notification_tools_title">Tools Settings</string>
+    <string name="settings_systemui_notification_tools_summary">Expanded Notification tools Settings,etc&#8230;</string>
+    
+    <string name="settings_gxmod_only_keybuttonview_title">NavBar KeyButton</string>
+    <string name="settings_gxmod_only_keybuttonview_summary">NavBar KeyButton Settings</string>    
+    <string name="settings_gxmod_only_keybuttonview_home_recent_key">HookGxModKeyButtonViewHomeRecentKey</string>
+    <string name="settings_gxmod_only_keybuttonview_home_recent_title">HomeKey long press</string>
+    <string name="settings_gxmod_only_keybuttonview_home_recent_summary">Disable Recent apps when HomeKey long pressed</string>
+    <string name="settings_gxmod_only_keybuttonview_optional_key">HookGxModKeyButtonViewOptionalKey</string>
+    <string name="settings_gxmod_only_keybuttonview_optional_title">OptionalKey long press</string>
+    <string name="settings_gxmod_only_keybuttonview_optional_summary">Enable OptionalKey long pressed</string>
+    <string name="settings_gxmod_only_gxmod_caution_message_title">"About this settings."</string>
+    <string name="settings_gxmod_only_gxmod_caution_message_summary">"This settings support installed GXMod Xperia SO-04D or SO-05D in Japan only. Thanks 154&amp;cubeundcube."</string>
+    
+	<!-- Module -->
+    <string name="move_tools_key">HookMoveToolsKey</string>
+    <string name="move_tools_title">Move tools</string>
+    <string name="move_tools_summary">Move tools to bottom</string>
+    
+    <string name="add_brightnessbar_key">HookAddBrightnessbarkey</string>
+    <string name="add_brightnessbar_title">Add Brightnessbar</string>
+    <string name="add_brightnessbar_summary">Add Brightnessbar to Expanded Notification bar</string>
+    
+    <string name="move_brightnessbar_key">HookMoveBrightnessBarKey</string>
+    <string name="move_brightnessbar_title">Move BrightnessBar</string>
+    <string name="move_brightnessbar_summary">Move BrightnessBar to bottom</string>
+    
+    <string name="show_carrier_label_key">HookCarrierLabelKey</string>
+    <string name="show_carrier_label_title">Carrier Name Label</string>
+    <string name="show_carrier_label_summary">Show Carrier Name Label on Expanded Notification bar</string>
+
+    <string name="show_auto_brightness_checkbox_key">ShowAutoBrightnessCheckboxKey</string>
+    <string name="show_auto_brightness_checkbox_title">Show Auto Brightness Checkbox</string>
+    <string name="show_auto_brightness_checkbox_summary">Show or Hide Brightness Checkbox, when Brightness icon click\nPlease perform the brightness control when it does not appear</string>
+
+    <string name="automatic_brightness">Auto</string>
+    
+    <!-- ETC -->
+    <string name="loading_dialog_title">Now Loading&#8230;</string>
+    <string name="loading_dialog_message">Getting plugins data from network</string>
+    <string name="loading_dialog_canceled_message">Please reload this view</string>
+    <string name="please_install_message">Please install plugin</string>
+    <string name="fail_to_get_list_of_plugin_from_network">Failed to get list of plugin from network</string>    
+    <string name="update_notification">There are updates of plug-in</string>
+    <string name="no_installed">"[Not yet installed]"</string>
+    <string name="can_update">"[Can update]"</string>
+    
+    <string name="clear_all_key">ClearAllKey</string>
+    <string name="clear_all_title">Clear All Settings</string>
+    <string name="clear_all_summary">To clear all the settings after the confirmation and set default value</string>
+    <string name="clear_all_dialog_title">Clear all settings?</string>
+    
+    <string name="debug_option_changed">This app\'s Xposed Debug Log [%1$s]</string>
+    
+    <!-- About -->
+    <string name="about_developers_label">Main developers:</string>
+    <string name="about_developers"><a href="http://forum.xda-developers.com/member.php?u=2851639">ru_426</a></string>
+    <string name="about_developers_warning">Please do <b>not</b> contact us directly for support, use the link below.</string>
+    <string name="about_translator_label">Translator:</string>
+    <string name="translator"></string>
+    <string name="about_version_label">Version of this app:</string>
+    <string name="about_source_label">Source code:</string>
+    <string name="about_source">https://github.com/ru426</string>
+    <string name="about_support_label">Get support at:</string>
+    <string name="about_support">http://forum.xda-developers.com/showthread.php?p=48398410</string>
+    <string name="about_support_warning"></string>
+    <string name="about_desc_label">Description:</string>
+    <string name="about_libraries_label">Used libraries:</string>
+    <string name="about_libraries"></string>
+
+</resources>

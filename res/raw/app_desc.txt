@@ -1,0 +1,25 @@
+Module of the Xposed framework.
+Tested with (SO04-D) JB4.1 Xperia GX in Japan.
+Can add functionality with the addition of its own plugin.
+Improvement of freedom and stability By Filter function.
+
+■SystemUI features
+- Add Brightness bar to NotificationBar.
+- Change Brightness bar position to bottom.
+- Change the tools toggle position to bottom.
+- Carrier name show/hide on NotificationBar.
+
+
+■SystemUI GXMod features(Only SO-04D with 154Mod in Japan)
+- Disable RecentList on Long press HOME key.
+- Enable OptionalKey Long press function.
+
+and many more...
+
+
+Thanks rovo89.
+Thanks virifi.
+Thanks C3C0.
+Thanks 154.
+Thanks CubeundCube.
+Thanks Sergey Margaritov.

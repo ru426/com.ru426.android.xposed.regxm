@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res/com.ru426.android.xposed.regxm" >
+
+    <PreferenceCategory
+        android:summary="@string/settings_systemui_summary"
+        android:title="@string/settings_systemui_title" >
+        <Preference
+            android:fragment="com.ru426.android.xposed.regxm.Settings$SystemUITools"
+            android:summary="@string/settings_systemui_notification_tools_summary"
+            android:title="@string/settings_systemui_notification_tools_title" />
+        <Preference
+            android:fragment="com.ru426.android.xposed.regxm.Settings$SystemUINotification"
+            android:key="@string/settings_systemui_notification_key"
+            android:summary="@string/settings_systemui_notification_summary"
+            android:title="@string/settings_systemui_notification_title" />
+        <Preference
+            android:fragment="com.ru426.android.xposed.regxm.Settings$SystemUINavigation"
+            android:key="@string/settings_systemui_navigation_key"
+            android:summary="@string/settings_systemui_navigation_summary"
+            android:title="@string/settings_systemui_navigation_title" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="notification_panel_header_base_height">52.0dip</dimen>
+
+</resources>

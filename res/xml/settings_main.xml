@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <header android:title="@string/ru_settings_title"  />
+    <header
+        android:fragment="com.ru426.android.xposed.regxm.Settings$SystemUI"
+        android:summary="@string/settings_systemui_summary"
+        android:title="@string/settings_systemui_title" />
+    <header
+        android:fragment="com.ru426.android.xposed.regxm.Settings$LockScreen"
+        android:summary="@string/settings_lockscreen_summary"
+        android:title="@string/settings_lockscreen_title" />
+    <header
+        android:fragment="com.ru426.android.xposed.regxm.Settings$PowerButtonMenu"
+        android:summary="@string/settings_power_menu_summary"
+        android:title="@string/settings_power_menu_title" />
+    <header
+        android:fragment="com.ru426.android.xposed.regxm.Settings$BehaviorAndEtc"
+        android:summary="@string/settings_behavior_and_etc_summary"
+        android:title="@string/settings_behavior_and_etc_title" />
+    <header
+        android:fragment="com.ru426.android.xposed.regxm.Settings$GXModOnly"
+        android:key="@string/settings_gxmod_only_key"
+        android:summary="@string/settings_gxmod_only_summary"
+        android:title="@string/settings_gxmod_only_title" />
+    <header
+        android:fragment="com.ru426.android.xposed.regxm.Settings$PluginsList"
+        android:summary="@string/settings_plugins_summary"
+        android:title="@string/settings_plugins_title" />
+    <header 
+        android:fragment="com.ru426.android.xposed.regxm.Settings$AppSettings"
+        android:summary="@string/ru_app_settings_summary"
+        android:title="@string/ru_app_settings_title" />
+    <header
+        android:fragment="com.ru426.android.xposed.regxm.Settings$AboutApp"
+        android:summary="@string/settings_about_summary"
+        android:title="@string/settings_about_title" />
+
+</preference-headers>

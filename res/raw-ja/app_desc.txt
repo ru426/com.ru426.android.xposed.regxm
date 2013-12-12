@@ -1,0 +1,24 @@
+Xposed frameworkのモジュール。
+Xperia GX(SO04-D) JB4.1で動作確認しています。
+独自プラグインの追加で機能を追加することができます。
+機能を絞り込むことで安定度と自由度の向上。
+
+■SystemUI 変更機能
+- 通知バーに輝度スライダーを追加
+- 輝度スライダーの位置を通知バーの下方に移動
+- ツールトグルの位置を通知バーの下方に移動
+- 通知バーキャリア名の表示・非表示
+
+■SystemUI GXMod 変更機能(SO-04D with 154Modのみ)
+- ホームボタン長押し時アプリ履歴を表示・非表示
+- オプショナルキーの長押しを有効にする
+
+and many more...
+
+
+Thanks rovo89.
+Thanks virifi.
+Thanks C3C0.
+Thanks 154.
+Thanks CubeundCube.
+Thanks Sergey Margaritov.
