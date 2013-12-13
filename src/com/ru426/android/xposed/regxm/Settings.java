@@ -644,6 +644,7 @@ public class Settings extends PreferenceActivity {
 			File downloadedFileDir = mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
         	downloadedFileDir.mkdirs();
 			File[] files = downloadedFileDir.listFiles();
+			fileNameTextAndValue.clear();
 			if(files != null && files.length > 0){
 				SubMenu submenu = menu.findItem(R.id.showDownloadFolder).getSubMenu();
 				submenu.clear();
@@ -654,7 +655,7 @@ public class Settings extends PreferenceActivity {
 						String[] fileNameSplit = file.getName().split("\\.");
 						String fileNameValue = "";
 						if(fileNameSplit != null && fileNameSplit.length > 1){
-							fileNameValue = fileNameSplit[fileNameSplit.length-2] + fileNameSplit[fileNameSplit.length-1];
+							fileNameValue = fileNameSplit[fileNameSplit.length-2] + "." + fileNameSplit[fileNameSplit.length-1];
 						}
 						if(fileNameValue.length() <= 0) fileNameValue = file.getName();
 						fileNameTextAndValue.put(fileNameValue, file.getName());

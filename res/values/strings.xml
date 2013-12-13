@@ -107,7 +107,7 @@
     <string name="translator"></string>
     <string name="about_version_label">Version of this app:</string>
     <string name="about_source_label">Source code:</string>
-    <string name="about_source">https://github.com/ru426</string>
+    <string name="about_source">https://github.com/ru426?tab=repositories</string>
     <string name="about_support_label">Get support at:</string>
     <string name="about_support">http://forum.xda-developers.com/showthread.php?p=48398410</string>
     <string name="about_support_warning"></string>

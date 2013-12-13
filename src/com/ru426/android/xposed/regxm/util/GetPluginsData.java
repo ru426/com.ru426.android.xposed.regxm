@@ -148,24 +148,24 @@ public class GetPluginsData extends AsyncTask<Object, Void, Boolean> {
 			}catch(ClassCastException e){
 				try{
 					int value = (Integer) obj;
-					target.edit().putInt(key, value).commit();
+					target.edit().putInt(_key, value).commit();
 				}catch(ClassCastException e1){
 					try{
 						long value = (Long) obj;
-						target.edit().putLong(key, value).commit();
+						target.edit().putLong(_key, value).commit();
 					}catch(ClassCastException e2){
 						try{
 							float value = (Float) obj;
-							target.edit().putFloat(key, value).commit();
-						}catch(ClassCastException e3){											
+							target.edit().putFloat(_key, value).commit();
+						}catch(ClassCastException e3){
 							try{
 								String value = (String) obj;
-								target.edit().putString(key, value).commit();
+								target.edit().putString(_key, value).commit();
 							}catch(ClassCastException e4){
 								try{
 									@SuppressWarnings("unchecked")
 									Set<String> value = (Set<String>) obj;
-									target.edit().putStringSet(key, value).commit();
+									target.edit().putStringSet(_key, value).commit();
 								}catch(ClassCastException e5){
 								}
 							}
