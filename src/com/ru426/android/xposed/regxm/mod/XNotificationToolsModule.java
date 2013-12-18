@@ -495,7 +495,7 @@ public class XNotificationToolsModule extends ModuleBase {
 	private static BroadcastReceiver xModuleReceiver = new BroadcastReceiver() {		
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			XposedBridge.log(TAG + " : " + intent.getAction());
+//			XposedBridge.log(TAG + " : " + intent.getAction());
 			if (intent.getAction().equals(STATE_CHANGE)) {
 				useBrightnessbar = intent.getBooleanExtra(STATE_EXTRA_ADD_BRIGHTNESSBAR, false);
 				moveToolsBar = intent.getBooleanExtra(STATE_EXTRA_MOVE_TOOLSBAR, false);
