@@ -228,8 +228,12 @@ public class ToolbarBrightnessController extends LinearLayout implements android
 			Class<?> mIPowerManagerStubClass = Class.forName("android.os.IPowerManager$Stub");
 						
 			Method mGetService = mServiceManagerClass.getMethod("getService", new Class[]{String.class});
-			Method mAsInterface = mIPowerManagerStubClass.getMethod("asInterface", new Class[]{IBinder.class});			
-			mSetBacklightBrightness = mIPowerManagerClass.getMethod("setBacklightBrightness", new Class[]{int.class});
+			Method mAsInterface = mIPowerManagerStubClass.getMethod("asInterface", new Class[]{IBinder.class});
+			try{
+				mSetBacklightBrightness = mIPowerManagerClass.getMethod("setBacklightBrightness", new Class[]{int.class});
+			}catch(NoSuchMethodException e){
+				mSetBacklightBrightness = mIPowerManagerClass.getMethod("setTemporaryScreenBrightnessSettingOverride", new Class[]{int.class});
+			}			
 			
 			IBinder power = (IBinder) mGetService.invoke(null, "power");
 			return mAsInterface.invoke(null, power);	
@@ -271,7 +275,7 @@ public class ToolbarBrightnessController extends LinearLayout implements android
 	}
 
 	@Override
-	public void onStartTrackingTouch(SeekBar arg0) {		
+	public void onStartTrackingTouch(SeekBar arg0) {
 		try {
 			brightnessMode = Settings.System.getInt(mContext.getContentResolver(),Settings.System.SCREEN_BRIGHTNESS_MODE);
 			android.provider.Settings.System.putInt(mContext.getContentResolver(),Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);

@@ -44,9 +44,9 @@ public class XGXModOnlyNavigationBarModule extends ModuleBase {
 			@Override
 			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 				super.afterHookedMethod(param);
-				try{
-					xLog(TAG + " : " + "afterHookedMethod hookAllConstructors");
+				try{					
 					if(isGXMod){
+						xLog(TAG + " : " + "afterHookedMethod hookAllConstructors");
 						ImageView mKeyButtonView = (ImageView) param.thisObject;
 						mContext = mKeyButtonView.getContext();
 						IntentFilter intentFilter = new IntentFilter();

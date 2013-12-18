@@ -1,10 +1,17 @@
 package com.ru426.android.xposed.regxm.mod;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +26,13 @@ import com.ru426.android.xposed.regxm.R;
 import com.ru426.android.xposed.regxm.Settings;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodHook.MethodHookParam;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 
+@SuppressLint("DefaultLocale")
 public class XNotificationToolsModule extends ModuleBase {
 	private static String TAG = XNotificationToolsModule.class.getSimpleName();
 	public static final String STATE_CHANGE = XNotificationToolsModule.class.getName() + ".intent.action.STATE_CHANGE";
@@ -50,6 +59,7 @@ public class XNotificationToolsModule extends ModuleBase {
 	static FrameLayout mNotificationPanel;
 	static LinearLayout toolsExpandedHeader;
 	static LinearLayout clockContainer;
+	static RelativeLayout datetimeContainer;
 	static LinearLayout toolsExpandedHeaderContainer;
 	static ScrollView mScrollView;
 	
@@ -73,12 +83,14 @@ public class XNotificationToolsModule extends ModuleBase {
 		Class<?> xPhoneStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.phone.PhoneStatusBar", classLoader);
 		Object callback[] = new Object[2];
 		callback[0] = boolean.class;
-		callback[1] = new XC_MethodHook() {
+		XC_MethodHook mHookMakeExpandedVisible = new XC_MethodHook() {
 			@Override
 			protected void afterHookedMethod(MethodHookParam param) throws Throwable {				
 				super.afterHookedMethod(param);
 				try{
 					xLog(TAG + " : " + "afterHookedMethod makeExpandedVisible");
+					if(!initialViews(param)) return;
+					
 					boolean mExpandedVisible = (Boolean) param.args[0];
 					if(!mExpandedVisible){
 						xLog(TAG + " : " + "afterHookedMethod makeExpandedVisible : mExpandedVisible is false");
@@ -108,14 +120,18 @@ public class XNotificationToolsModule extends ModuleBase {
 					}
 
 					if(useBrightnessbar){
-						isSetBrightnessbar = true;							
+						isSetBrightnessbar = true;
 						makeBrightnessBar(false);
 						if(brightnessBar != null ){
 							removeFromParent(brightnessBar);
 							if(moveBrightnessBar){
 								movedToolsContainerInner.addView(brightnessBar);
 							} else {
-								toolsExpandedHeader.addView(brightnessBar, isMovedToolsBar ? 0 : 3);
+								if(datetimeContainer == null){
+									toolsExpandedHeader.addView(brightnessBar, isMovedToolsBar ? 0 : 3);
+								}else{
+									toolsExpandedHeader.addView(brightnessBar, 0);
+								}
 							}							
 						}
 					} else {
@@ -131,10 +147,20 @@ public class XNotificationToolsModule extends ModuleBase {
 				}
 			}
 		};
+		callback[1] = mHookMakeExpandedVisible;
+		
+		Object callback_afterMR1[] = new Object[1];
+		callback_afterMR1[0] = mHookMakeExpandedVisible;
 		try{
+			// JB
 			XposedHelpers.findAndHookMethod(xPhoneStatusBar, "makeExpandedVisible", callback);
 		}catch(NoSuchMethodError e){
-			XposedBridge.log(e);
+			try{
+				// later JB MR1 and KitKat 
+				XposedHelpers.findAndHookMethod(xPhoneStatusBar, "makeExpandedVisible", callback_afterMR1);
+			}catch(NoSuchMethodError e1){
+				XposedBridge.log(e1);
+			}
 		}
 		
 		Object callback2[] = new Object[2];
@@ -211,7 +237,9 @@ public class XNotificationToolsModule extends ModuleBase {
 			}
 		};
 		try{
-			XposedHelpers.findAndHookMethod(xPhoneStatusBar, "updateNotificationPanelHeaderHeight", callback4);
+			if(isXperiaDevice()){
+				XposedHelpers.findAndHookMethod(xPhoneStatusBar, "updateNotificationPanelHeaderHeight", callback4);
+			}
 		}catch(NoSuchMethodError e){
 			XposedBridge.log(e);
 		}
@@ -223,74 +251,7 @@ public class XNotificationToolsModule extends ModuleBase {
 				super.afterHookedMethod(param);
 				try{
 					xLog(TAG + " : " + "afterHookedMethod makeStatusBarView");
-					try {
-						mStatusBarWindow = (FrameLayout) XposedHelpers.getObjectField(param.thisObject, "mStatusBarWindow");											
-					} catch (Exception e) {
-						XposedBridge.log(e);
-					}
-					try {
-						mNotificationPanel = (FrameLayout) XposedHelpers.getObjectField(param.thisObject, "mNotificationPanel");
-					} catch (Exception e) {
-						XposedBridge.log(e);
-					}
-					try {
-						mScrollView = (ScrollView) XposedHelpers.getObjectField(param.thisObject, "mScrollView");
-					} catch (Exception e) {
-						XposedBridge.log(e);
-					}
-					try {
-						mCloseViewHeight = (Integer) XposedHelpers.getObjectField(param.thisObject, "mCloseViewHeight");
-					} catch (Exception e) {
-						XposedBridge.log(e);
-					}
-					try {
-						mCarrierLabelHeight = (Integer) XposedHelpers.getObjectField(param.thisObject, "mCarrierLabelHeight");						
-					} catch (Exception e) {
-						XposedBridge.log(e);
-					}
-					
-					if(mStatusBarWindow == null){
-						XposedBridge.log("Couldn't initialize Notifications ExpandedHeader");
-						return;
-					}					
-					mContext = mStatusBarWindow.getContext();					
-					if(mContext == null){
-						XposedBridge.log("mContext is null");
-						return;
-					}
-					
-					int toolsContainerId = mContext.getResources().getIdentifier("tools_expanded", "id", mContext.getPackageName());//GXMod
-					if(toolsContainerId <= 0) toolsContainerId = mContext.getResources().getIdentifier("expand_header", "id", mContext.getPackageName());//GX
-					if(toolsContainerId <= 0) toolsContainerId = mContext.getResources().getIdentifier("header", "id", mContext.getPackageName());//Z
-					
-					toolsExpandedHeader = (LinearLayout) mStatusBarWindow.findViewById(toolsContainerId);
-					
-					if(toolsExpandedHeader != null){
-						for(int i = 0; i < toolsExpandedHeader.getChildCount(); i++){
-							if(toolsExpandedHeader.getChildAt(i) instanceof LinearLayout){
-								LinearLayout view = (LinearLayout) toolsExpandedHeader.getChildAt(i);
-								if(view.getId() == mContext.getResources().getIdentifier("tools_row_0", "id",  mContext.getPackageName())){
-									toolsRow0 = view;									
-								}else if(view.getId() == mContext.getResources().getIdentifier("tools_row_1", "id",  mContext.getPackageName())){
-									toolsRow1 = view;
-								}else{	
-									if(view.getChildCount() > 2){
-										//clockContainer
-										clockContainer = view;
-									}else{
-										//GXMod brightnessBar
-										brightnessBar = view;
-										removeFromParent(brightnessBar);
-									}
-								}
-							} else if (toolsExpandedHeader.getChildAt(i) instanceof View){
-								statusBarHr = (View) toolsExpandedHeader.getChildAt(i);
-							}
-						}
-						IntentFilter intentFilter = new IntentFilter();
-						intentFilter.addAction(STATE_CHANGE);
-						xRegisterReceiver(mContext, intentFilter);
-					}
+					initialViews(param);
 				} catch (Throwable throwable) {
 					XposedBridge.log(throwable);
 				}
@@ -316,7 +277,13 @@ public class XNotificationToolsModule extends ModuleBase {
 					}
 					removeFromParent(brightnessBar);
 					makeBrightnessBar(true);
-					if(parent != null) parent.addView(brightnessBar);
+					if(parent != null){
+						if(datetimeContainer == null){
+							parent.addView(brightnessBar, isMovedToolsBar ? 0 : 3);
+						}else{
+							parent.addView(brightnessBar, 0);
+						}
+					}
 					updateModNotificationPanelHeaderHeight();					
 					setMovedToolsContainerBottomMargin();
 				} catch (Throwable throwable) {
@@ -331,12 +298,94 @@ public class XNotificationToolsModule extends ModuleBase {
 		}
 	}
 	
+	private static boolean initialViews(MethodHookParam param){
+		if(XposedHelpers.getObjectField(param.thisObject, "mStatusBarWindow") == null){
+			XposedBridge.log("Couldn't initialize Notifications ExpandedHeader");
+			return false;
+		}
+		FrameLayout mStatusBarWindow = (FrameLayout) XposedHelpers.getObjectField(param.thisObject, "mStatusBarWindow");
+		if(mContext == null) {
+			mContext = mStatusBarWindow.getContext();
+			IntentFilter intentFilter = new IntentFilter();
+			intentFilter.addAction(STATE_CHANGE);
+			mContext.registerReceiver(xModuleReceiver, intentFilter);
+		}
+		
+		if(toolsExpandedHeader == null){
+			try {
+				mNotificationPanel = (FrameLayout) XposedHelpers.getObjectField(param.thisObject, "mNotificationPanel");
+				mScrollView = (ScrollView) XposedHelpers.getObjectField(param.thisObject, "mScrollView");
+			} catch (Exception e) {
+				XposedBridge.log(e);
+			}
+			if (Build.VERSION_CODES.JELLY_BEAN_MR1 <= Build.VERSION.SDK_INT) {
+				// mCloseViewHeight is nothing
+			} else if (Build.VERSION_CODES.ICE_CREAM_SANDWICH <= Build.VERSION.SDK_INT
+					&& Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN) {
+				try {
+					mCloseViewHeight = (Integer) XposedHelpers.getObjectField(param.thisObject, "mCloseViewHeight");
+				} catch (NoSuchFieldError e) {
+					mCloseViewHeight = 36;
+				}
+			}
+			
+			try {
+				int id = mContext.getResources().getIdentifier("notification_panel_tools_row_height", "dimen", mContext.getPackageName());
+				if(id > 0)
+					mBrightnessBarHeight = mContext.getResources().getDimensionPixelSize(id);
+			} catch (Exception e) { }
+			try {
+				mCarrierLabelHeight = (Integer) XposedHelpers.getObjectField(param.thisObject, "mCarrierLabelHeight");
+			} catch (Exception e) { }
+			
+			int toolsContainerId = mContext.getResources().getIdentifier("tools_expanded", "id", mContext.getPackageName());//GXMod
+			if(toolsContainerId <= 0) toolsContainerId = mContext.getResources().getIdentifier("expand_header", "id", mContext.getPackageName());//GX
+			if(toolsContainerId <= 0) toolsContainerId = mContext.getResources().getIdentifier("header", "id", mContext.getPackageName());//Z
+			
+			if(toolsContainerId > 0 && mStatusBarWindow.findViewById(toolsContainerId) != null){
+				toolsExpandedHeader = (LinearLayout) mStatusBarWindow.findViewById(toolsContainerId);
+			}			
+			
+			if(toolsExpandedHeader != null){
+				for(int i = 0; i < toolsExpandedHeader.getChildCount(); i++){
+					if(toolsExpandedHeader.getChildAt(i) instanceof LinearLayout){
+						LinearLayout view = (LinearLayout) toolsExpandedHeader.getChildAt(i);
+						if(view.getId() == mContext.getResources().getIdentifier("tools_row_0", "id",  mContext.getPackageName())){
+							toolsRow0 = view;									
+						}else if(view.getId() == mContext.getResources().getIdentifier("tools_row_1", "id",  mContext.getPackageName())){
+							toolsRow1 = view;
+						}else{	
+							if(view.getChildCount() > 2){
+								clockContainer = view;
+							}else{//GXMod brightnessBar
+								brightnessBar = view;
+								removeFromParent(brightnessBar);
+							}
+						}
+					} else if (toolsExpandedHeader.getChildAt(i) instanceof View){
+						statusBarHr = (View) toolsExpandedHeader.getChildAt(i);
+					} else if (toolsExpandedHeader.getChildAt(i) instanceof RelativeLayout){// For Not SONY Xperia
+						if(toolsExpandedHeader.getChildAt(i).getId() == mContext.getResources().getIdentifier("datetime", "id",  mContext.getPackageName())){
+							datetimeContainer = (RelativeLayout) toolsExpandedHeader.getChildAt(i);
+							break;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
 	private static void makeBrightnessBar(boolean force){
 		if(!force && brightnessBar != null) return;
 		brightnessBar = (LinearLayout) makeToolbarBrightnessController(mContext);
 	}
 
 	private static View makeToolbarBrightnessController(Context context){
+		if(context == null){
+			XposedBridge.log(TAG + " : " + "makeToolbarBrightnessController mContext is null");
+			return null;
+		}
 		Context regxmContext = null;
 		try {
 			regxmContext = context.createPackageContext(Settings.PACKAGE_NAME, 3);
@@ -369,40 +418,51 @@ public class XNotificationToolsModule extends ModuleBase {
 	}
 	
 	private static void setMovedToolsContainerBottomMargin(){
-		if(mScrollView != null){
-			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1);
-			mScrollView.setLayoutParams(layoutParams);
-			LinearLayout parent = null;
+		if(mScrollView != null){		
+			LinearLayout container = null;
 			if(mScrollView.getParent() instanceof LinearLayout){
-				parent = (LinearLayout) mScrollView.getParent();
-			}else{//Z
+				container = (LinearLayout) mScrollView.getParent();
+			}else{// after JELLY_BEAN_MR1
 				if(mScrollView.getParent().getParent() instanceof LinearLayout){
-					parent = (LinearLayout) mScrollView.getParent().getParent();
+					container = (LinearLayout) mScrollView.getParent().getParent();
 				}
 			}
-			layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+			if(mScrollView.getParent() instanceof FrameLayout){// after JELLY_BEAN_MR1
+				FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+				mScrollView.setLayoutParams(frameLayoutParams);
+			}else if(mScrollView.getParent() instanceof LinearLayout){
+				LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1);
+				mScrollView.setLayoutParams(layoutParams);
+			}
+			
+			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 			int targetHeight = 0;
 			targetHeight += mCloseViewHeight;
 			if(showCarrierName) targetHeight += mCarrierLabelHeight;
 			targetHeight += mClearButtonLowerHeight;
 			layoutParams.bottomMargin = targetHeight;
 			removeFromParent(movedToolsContainer);
-			if(movedToolsContainer!= null && parent != null){
+			if(movedToolsContainer!= null && container != null){
 				movedToolsContainer.setLayoutParams(layoutParams);
-				parent.addView(movedToolsContainer);
+				container.addView(movedToolsContainer);
 			}
 		}
 	}
 	
 	private static void updateModNotificationPanelHeaderHeight(){
-		if(toolsExpandedHeader != null && mContext != null && toolsRow0 != null){
+		if(toolsExpandedHeader != null && mContext != null){
 			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 			for(int i = 0; i < toolsExpandedHeader.getChildCount(); i++){
 				if(brightnessBar == toolsExpandedHeader.getChildAt(i)){
 					layoutParams.height += mBrightnessBarHeight;
 				}else{
 					if(toolsExpandedHeader.getChildAt(i).getVisibility() == View.VISIBLE){
-						layoutParams.height += toolsExpandedHeader.getChildAt(i).getLayoutParams().height;
+						if(toolsExpandedHeader.getChildAt(i).getLayoutParams() != null)
+							layoutParams.height += toolsExpandedHeader.getChildAt(i).getLayoutParams().height;
+						if(toolsExpandedHeader.getChildAt(i).getId() == mContext.getResources().getIdentifier("tools_row_0", "id", mContext.getPackageName())
+								| toolsExpandedHeader.getChildAt(i).getId() == mContext.getResources().getIdentifier("tools_row_1", "id",  mContext.getPackageName())){
+							layoutParams.height += 4; // adjust paddin value
+						}
 					}
 				}
 			}
@@ -432,19 +492,38 @@ public class XNotificationToolsModule extends ModuleBase {
 		}
 	}
 	
-	@Override
-	protected void xOnReceive(Context context, Intent intent) {		
-		super.xOnReceive(context, intent);
-		xLog(TAG + " : " + intent.getAction());
-		if (intent.getAction().equals(STATE_CHANGE)) {
-			useBrightnessbar = intent.getBooleanExtra(STATE_EXTRA_ADD_BRIGHTNESSBAR, false);
-			moveToolsBar = intent.getBooleanExtra(STATE_EXTRA_MOVE_TOOLSBAR, false);
-			moveBrightnessBar = intent.getBooleanExtra(STATE_EXTRA_MOVE_BRIGHTNESSBAR, false);
-			showCarrierName = intent.getBooleanExtra(STATE_EXTRA_SHOW_CARRIER_NAME, true);
-			xLog(TAG + " : " + "useBrightnessbar is " + useBrightnessbar);
-			xLog(TAG + " : " + "moveToolsBar is " + moveToolsBar);
-			xLog(TAG + " : " + "moveBrightnessBar is " + moveBrightnessBar);
-			xLog(TAG + " : " + "showCarrierName is " + showCarrierName);
+	private static BroadcastReceiver xModuleReceiver = new BroadcastReceiver() {		
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			XposedBridge.log(TAG + " : " + intent.getAction());
+			if (intent.getAction().equals(STATE_CHANGE)) {
+				useBrightnessbar = intent.getBooleanExtra(STATE_EXTRA_ADD_BRIGHTNESSBAR, false);
+				moveToolsBar = intent.getBooleanExtra(STATE_EXTRA_MOVE_TOOLSBAR, false);
+				moveBrightnessBar = intent.getBooleanExtra(STATE_EXTRA_MOVE_BRIGHTNESSBAR, false);
+				showCarrierName = intent.getBooleanExtra(STATE_EXTRA_SHOW_CARRIER_NAME, true);
+			}
 		}
-	}
+	};
+	
+	public static boolean isXperiaDevice() {
+        if (mIsXperiaDevice != null) return mIsXperiaDevice;
+
+        mIsXperiaDevice = Build.MANUFACTURER.equalsIgnoreCase("sony")  && !isMtkDevice();
+        return mIsXperiaDevice;
+    }
+	
+	@SuppressLint("DefaultLocale")
+	public static boolean isMtkDevice() {
+        if (mIsMtkDevice != null) return mIsMtkDevice;
+
+        mIsMtkDevice = MTK_DEVICES.contains(Build.HARDWARE.toLowerCase());
+        return mIsMtkDevice;
+    }
+	
+	private static Boolean mIsXperiaDevice = null;
+	private static Boolean mIsMtkDevice = null;
+	// Supported MTK devices
+    private static final Set<String> MTK_DEVICES = new HashSet<String>(Arrays.asList(
+        new String[] {"mt6572","mt6575","mt6577","mt8377","mt6582","mt6589","mt8389"}
+    ));
 }

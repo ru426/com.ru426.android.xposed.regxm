@@ -2,7 +2,7 @@
 <resources>
 	<!-- Settings -->
     <string name="app_name">ReGXM Ex</string>
-    <string name="app_desc">Rebuild of GXMod Extender for Xposed framework\n輝度バーを通知バーに追加するなどができます</string>
+    <string name="app_desc">Rebuild of GXMod Extender for Xposed framework\n輝度バーを通知バーに追加するなどができます\n基本サポート端末はXperia JB 4.x です</string>
 
     <string name="settings_systemui_title">SystemUI 設定</string>
     <string name="settings_systemui_summary">SystemUI 設定の変更</string>
@@ -35,7 +35,7 @@
     <string name="settings_third_party_plugin_summary">サードパーティーの ReGXM プラグイン</string>
     
     <string name="settings_plugin_list_title">ReGXM プラグインインストール方法</string>
-    <string name="settings_plugin_list_summary">■ 下記リストからダウンロードしてプラグインをインストールして下さい\n\n■ インストール済みは 長押しでアンインストール</string>
+    <string name="settings_plugin_list_summary">■ 下記リストからダウンロードしてプラグインをインストールして下さい\n\n■ インストール済みは 長押しでアンインストール\n\n■ フォルダアイコンよりダウンロード済みファイルからのインストール</string>
     
     <string name="settings_systemui_navigation_key">NavigationBarSettingsKey</string>
     <string name="settings_systemui_navigation_title">ナビゲーションバー関連</string>

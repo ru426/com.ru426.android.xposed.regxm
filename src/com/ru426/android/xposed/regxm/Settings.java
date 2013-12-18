@@ -313,7 +313,15 @@ public class Settings extends PreferenceActivity {
 					}
 				}
 			}
+	        makePluginPreference(getPreferenceScreen(), getActivity().getString(R.string.ru_category_systemui));
 	    }
+		@Override
+		public void onResume() {
+			super.onResume();
+			if(getPreferenceScreen().getPreferenceCount() < 1){
+				makePluginPreference(getPreferenceScreen(), getActivity().getString(R.string.ru_category_systemui));
+			}
+		}
 	}
 	
 	public static class SystemUINavigation extends ModPreferenceFragment {
@@ -355,6 +363,8 @@ public class Settings extends PreferenceActivity {
 	        addPreferencesFromResource(R.xml.settings_systemui_notification_tools);
 	        findPreference(getString(R.string.move_brightnessbar_key)).setEnabled(((CheckBoxPreference) findPreference(getString(R.string.add_brightnessbar_key))).isChecked());
 	        ((CheckBoxPreference) findPreference(getString(R.string.show_carrier_label_key))).setChecked(prefs.getBoolean(getString(R.string.show_carrier_label_key), true));
+	        if(!XNotificationToolsModule.isXperiaDevice()) prefs.edit().putBoolean(getString(R.string.move_tools_key), false);
+	        findPreference(getString(R.string.move_tools_key)).setEnabled(XNotificationToolsModule.isXperiaDevice());
 	        makePluginPreference(getPreferenceScreen(), getActivity().getString(R.string.ru_category_systemui_tools));
 	    }
 	    @Override
@@ -684,11 +694,15 @@ public class Settings extends PreferenceActivity {
 	        	onDestroy();
 				break;
 	        default:
-	        	File downloadedFileDir = mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-	        	String fileName = downloadedFileDir + "/" + fileNameTextAndValue.get(item.getTitle());
-				intent = new Intent(Intent.ACTION_VIEW);
-				intent.setDataAndType(Uri.fromFile(new File(fileName)), "application/vnd.android.package-archive");
-				startActivity(intent);
+	        	try{
+		        	File downloadedFileDir = mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+		        	String fileName = downloadedFileDir + "/" + fileNameTextAndValue.get(item.getTitle());
+					intent = new Intent(Intent.ACTION_VIEW);
+					intent.setDataAndType(Uri.fromFile(new File(fileName)), "application/vnd.android.package-archive");
+					startActivity(intent);	        		
+	        	}catch(NullPointerException e){
+	        		e.printStackTrace();
+	        	}
 	        	return super.onOptionsItemSelected(item);
 	        }
 	        return true;

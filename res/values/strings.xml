@@ -2,7 +2,7 @@
 <resources>
 	<!-- Settings -->
     <string name="app_name">ReGXM Ex</string>
-    <string name="app_desc">Rebuild of GXMod Extender for Xposed framework\nYou can and will be added to the notification bar brightness bar</string>
+    <string name="app_desc">Rebuild of GXMod Extender for Xposed framework\nYou can and will be added to the notification bar brightness bar\nSupport device is basically the SONY Xperia on JB 4.x</string>
 
     <string name="settings_systemui_title">SystemUI Settings</string>
     <string name="settings_systemui_summary">Change SystemUI Settings</string>
@@ -35,7 +35,7 @@
     <string name="settings_third_party_plugin_summary">Third_party\'s ReGXM plugins</string>
     
     <string name="settings_plugin_list_title">How to install ReGXM Plugins</string>
-    <string name="settings_plugin_list_summary">■ Download opt-in list below\n\n■ After the plug-in has been installed, uninstall long Press</string>
+    <string name="settings_plugin_list_summary">■ Download opt-in list below\n\n■ After the plug-in has been installed, uninstall long Press\n\n■ Installing from a downloaded file from the folder icon</string>
     
     <string name="settings_systemui_navigation_key">NavigationBarSettingsKey</string>
     <string name="settings_systemui_navigation_title">Navigation Bar</string>
